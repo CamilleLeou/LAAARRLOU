@@ -5,6 +5,15 @@ typedef struct Film Film;
 typedef struct People People;
 typedef struct Date Date;
 
+void viderBuffer()
+{
+    int c = 0;
+    while (c != '\n' && c != EOF)
+    {
+        c = getchar();
+    }
+}
+
 struct Date
 {
     int day;
@@ -38,17 +47,20 @@ People addPeople()
     Person.surname = malloc(sizeof(char*));
     Person.birthplace = malloc(sizeof(char*));
 
-    printf("What is his surname ?\n");
-    scanf("%s", Person.surname);
-    printf("What is his name ?\n");
-    scanf("%s", Person.name);
-    printf("Where is he born ?\n");
-    scanf("%s", Person.birthplace);
-    printf("What is his birth day ?\n");
+    printf("What is his/her surname ?\n");
+    gets(Person.surname);
+
+    printf("What is his/her name ?\n");
+    gets(Person.name);
+
+    printf("Where is he/she born ?\n");
+    gets(Person.birthplace);
+
+    printf("What is his/her birth day ?\n");
     scanf("%d", &Person.birthday.day);
-    printf("What is his birth month ?\n");
+    printf("What is his/her birth month ?\n");
     scanf("%d", &Person.birthday.month);
-    printf("What is his birth year ?\n");
+    printf("What is his/her birth year ?\n");
     scanf("%d", &Person.birthday.year);
 
     return Person;
@@ -74,26 +86,36 @@ Film addFilm(Film Film)
     Film.name = malloc(sizeof(char*));
 
     printf("What's the name of your movie ?\n");
-    scanf("%s", Film.name);
+    gets(Film.name);
 
-    printf("What's the release date ?\n");
+    printf("What's the release date (year) ?\n");
     scanf("%d", &Film.date.year);
+
+    viderBuffer();
 
     printf("Who is the producer ?\n");
     Film.author = addPeople(Film.author);
 
+    system("cls");
+
     printf("How many main actors is there ?\n");
     scanf("%d", &Film.numberOfActors);
+
+    viderBuffer();
 
     Film.actors = malloc(Film.numberOfActors*sizeof(People));
     for(i = 0; i < Film.numberOfActors; i++)
     {
+        printf("Fill the infos for actor n°%d", i+1);
         Film.actors[i] = addPeople();
+
+        //viderBuffer();
+        system("cls");
         //printf("Actor n°%d", i+1);
         //Film.actors[i] = addPeople();
     }
 
-    printf("How long the movie last ?\n");
+    printf("How long the movie last (in min)?\n");
     scanf("%d", &Film.time);
 
     printf("What kind of movie is this ?\n1-Action \n2-Horror \n3-Documentary \n4-Police \n5-Drama \n6-Animation \n7-SF \n");
@@ -111,9 +133,9 @@ void afficher(Film Film)
 {
     int i = 0;
     printf("Movie name : %s \n", Film.name);
-    printf("Release date : %d/%d/%d \n", Film.date.day, Film.date.month, Film.date.year);
-    printf("Director : %s %s \n", Film.author.surname, Film.author.surname);
-    printf("Born in : %d/%d/%d in %s", Film.author.birthday.day, Film.author.birthday.month, Film.author.birthday.year, Film.author.birthplace);
+    printf("Release date : %d \n", Film.date.year);
+    printf("Director : %s %s \n", Film.author.surname, Film.author.name);
+    printf("Born in : %d/%d/%d in %s \n", Film.author.birthday.day, Film.author.birthday.month, Film.author.birthday.year, Film.author.birthplace);
     printf("Main actors : \n");
 
     for(i = 0; i < Film.numberOfActors; i++)
@@ -160,6 +182,14 @@ int main()
     }
 
     fclose(fichier); */
+
+    Film Titanic;
+
+    Titanic = addFilm(Titanic);
+
+    system("cls");
+
+    afficher(Titanic);
 
     return 0;
 }
