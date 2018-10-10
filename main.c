@@ -112,11 +112,6 @@ Film addFilm(Film Film)
     {
         printf("Fill the infos for actor n∞%d", i+1);
         Film.actors[i] = addPeople();
-
-        //viderBuffer();
-        system("cls");
-        //printf("Actor n∞%d", i+1);
-        //Film.actors[i] = addPeople();
     }
 
     printf("How long the movie last (in min)?\n");
@@ -127,7 +122,8 @@ Film addFilm(Film Film)
     {
         printf("Type the number \n");
         scanf("%d", &Film.type);
-    }while(Film.type < 1 || Film.type > 7);
+    }
+    while(Film.type < 1 || Film.type > 7);
 
 
     return Film;
@@ -151,43 +147,50 @@ void afficher(Film Film)
 
     switch(Film.type)
     {
-        case 1 : printf("Action");
-            break;
-        case 2 : printf("Horror");
-            break;
-        case 3 : printf("Doc");
-            break;
-        case 4 : printf("Police");
-            break;
-        case 5 : printf("Drama");
-            break;
-        case 6 : printf("Animation");
-            break;
-        case 7 : printf("SF");
-            break;
+    case 1 :
+        printf("Action");
+        break;
+    case 2 :
+        printf("Horror");
+        break;
+    case 3 :
+        printf("Doc");
+        break;
+    case 4 :
+        printf("Police");
+        break;
+    case 5 :
+        printf("Drama");
+        break;
+    case 6 :
+        printf("Animation");
+        break;
+    case 7 :
+        printf("SF");
+        break;
 
-        default : break;
+    default :
+        break;
 
     }
 }
 
-void entrerFilmBDD(Film Film, MYSQL mysql){
+void entrerFilmBDD(Film Film)
+{
+
+
+    MYSQL mysql;
+    mysql_init(&mysql);
+    mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
 
     if(mysql_real_connect(&mysql,"127.0.0.1","root","","film_tp5",0,NULL,0))
     {
-        //On déclare un tableau de char pour y stocker la requete
+
         char requete[150] = "";
 
-        //On stock la requete dans notre tableau de char
-        sprintf(requete, "INSERT INTO scores VALUES('', '%s', '%s', '%s', '%s', '%s')", Film.name, Film.date.year, Film.time, Film.type, Film.numberOfActors);
-
-
-        //On execute la requete
+        sprintf(requete, "INSERT INTO film VALUES (NULL, '%s', '%d', '%d', '%d', '%d')", Film.name, Film.date.year, Film.time, Film.type, Film.numberOfActors);
         mysql_query(&mysql, requete);
-
-
-        //Fermeture de MySQL
-        mysql_close(&mysql);
+        //mysql_close(&mysql);
     }
     else
     {
@@ -195,13 +198,42 @@ void entrerFilmBDD(Film Film, MYSQL mysql){
     }
 }
 
-void afficherTable(Film Film, MYSQL mysql){
+void supprimerFilmBDD()
+{
+    printf("debut suppression\n");
+    MYSQL mysql;
+    mysql_init(&mysql);
+    mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
+
+    if(mysql_real_connect(&mysql, "127.0.0.1", "root", "", "film_tp5", 0, NULL, 0))
+    {
+        printf("connection pour suppression\n");
+        char requeteDelete[150] = "";
+
+        sprintf(requeteDelete, "DELETE FROM film where titre = 'mon film'");
+        puts(requeteDelete);
+        mysql_query(&mysql, requeteDelete);
+        mysql_close(&mysql);
+
+    }
+
+    printf("fin suppression\n");
+}
+
+void afficherTable()
+{
+
+
+    MYSQL mysql;
+    mysql_init(&mysql);
+    mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
 
     //Afficher une table
-    if(mysql_real_connect(&mysql, "127.0.0.1", "root", "", "film_tp5", 0, NULL, 0)){
+    if(mysql_real_connect(&mysql, "127.0.0.1", "root", "", "film_tp5", 0, NULL, 0))
+    {
 
         //Requete : tout selctionner dans la table
-        mysql_query(&mysql, "SELECT * FROM acteurs_realisateurs");
+        mysql_query(&mysql, "SELECT * FROM film");
 
         //Declaration objet
         MYSQL_RES *result = NULL;
@@ -232,34 +264,37 @@ void afficherTable(Film Film, MYSQL mysql){
                 printf("[%.*s] ", (int) lengths[i], row[i] ? row[i] : "NULL");
             }
             printf("\n");
+
         }
 
         //Liberation du jeu de resultat
+        printf("avant free result\n");
         mysql_free_result(result);
-
-        //Fermeture de MySQL
-        mysql_close(&mysql);
+        printf("apres free result\n");
+        //mysql_close(&mysql);
+        printf("apres close\n");
 
     }
-    else {
 
-        printf("Echec de connexion au server");
-    }
+    printf("fin fonction\n");
 }
 
 int main()
 {
 
 
-    MYSQL mysql;
-    mysql_init(&mysql);
-    mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
-
     Film Titanic;
-    Titanic = addFilm(Titanic);
-
-    entrerFilmBDD(Titanic, mysql);
-    afficherTable(Titanic, mysql);
+    //Titanic = addFilm(Titanic);
+    //printf("table debut\n");
+    //afficherTable();
+    //entrerFilmBDD(Titanic);
+    //printf("table apres ajout\n");
+    //afficherTable();
+    supprimerFilmBDD();
+    //entrerFilmBDD(Titanic);
+    //printf("table apres suppression\n");
+    //afficherTable();
+    printf("fin programme\n");
 
     return 0;
 }
