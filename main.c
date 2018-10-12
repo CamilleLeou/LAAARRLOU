@@ -9,6 +9,7 @@ typedef struct Film Film;
 typedef struct People People;
 typedef struct Date Date;
 
+
 void viderBuffer()
 {
     int c = 0;
@@ -114,8 +115,15 @@ Film addFilm(Film Film)
         Film.actors[i] = addPeople();
     }
 
+    //int timer;
+    //int timeConversion[1];
     printf("How long the movie last (in min)?\n");
-    scanf("%d", &Film.time);
+    scanf("%d", Film.time);
+    //scanf("%d", &timer);
+    //timeConversion[0] = timer/60;
+    //timeConversion[1] = timer%60;
+
+
 
     printf("What kind of movie is this ?\n1-Action \n2-Horror \n3-Documentary \n4-Police \n5-Drama \n6-Animation \n7-SF \n");
     do
@@ -175,7 +183,7 @@ void afficher(Film Film)
     }
 }
 
-void entrerFilmBDD(Film Film)
+void entrer_Film_BDD(Film Film) //fonctionne
 {
 
 
@@ -198,7 +206,31 @@ void entrerFilmBDD(Film Film)
     }
 }
 
-void supprimerFilmBDD()
+void entrer_Realisateur_BDD(Film Film) //fonctionnne masi arrete le programme
+{
+
+    MYSQL mysql;
+    mysql_init(&mysql);
+    mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
+
+    if(mysql_real_connect(&mysql,"127.0.0.1","root","","film_tp5",0,NULL,0))
+    {
+
+        char requete[150] = "";
+
+        //sprintf(requete, "INSERT INTO acteurs_realisateurs VALUES (NULL, '%s', '%s', '1998-7-18', '%s')", Film.author.name, Film.author.surname, Film.author.birthplace);
+        mysql_query(&mysql, requete);
+        //mysql_close(&mysql);
+    }
+    else
+    {
+        printf("Une erreur s'est produite lors de la connexion a la BDD!\n");
+    }
+}
+
+
+
+void supprimerFilmBDD() //fonctionne mais arrete le programme
 {
     printf("debut suppression\n");
     MYSQL mysql;
@@ -210,7 +242,7 @@ void supprimerFilmBDD()
         printf("connection pour suppression\n");
         char requeteDelete[150] = "";
 
-        sprintf(requeteDelete, "DELETE FROM film where titre = 'mon film'");
+        sprintf(requeteDelete, "DELETE FROM film where titre = 'jerome'");
         puts(requeteDelete);
         mysql_query(&mysql, requeteDelete);
         mysql_close(&mysql);
@@ -220,9 +252,8 @@ void supprimerFilmBDD()
     printf("fin suppression\n");
 }
 
-void afficherTable()
+void afficherTable() //fonctionne
 {
-
 
     MYSQL mysql;
     mysql_init(&mysql);
@@ -233,7 +264,7 @@ void afficherTable()
     {
 
         //Requete : tout selctionner dans la table
-        mysql_query(&mysql, "SELECT * FROM film");
+        mysql_query(&mysql, "SELECT * FROM acteurs_realisateurs");
 
         //Declaration objet
         MYSQL_RES *result = NULL;
@@ -268,32 +299,40 @@ void afficherTable()
         }
 
         //Liberation du jeu de resultat
-        printf("avant free result\n");
+
         mysql_free_result(result);
-        printf("apres free result\n");
+
         //mysql_close(&mysql);
-        printf("apres close\n");
+
 
     }
 
     printf("fin fonction\n");
 }
 
+
+
+
+
+
 int main()
 {
 
 
     Film Titanic;
+    Titanic.author = InitNull();
+
     //Titanic = addFilm(Titanic);
     //printf("table debut\n");
-    //afficherTable();
-    //entrerFilmBDD(Titanic);
+    afficherTable();
+    //entrer_Film_BDD(Titanic);
+    //entrer_Realisateur_BDD(Titanic);
     //printf("table apres ajout\n");
-    //afficherTable();
-    supprimerFilmBDD();
-    //entrerFilmBDD(Titanic);
+    afficherTable();
+    //supprimerFilmBDD();
+    //entrer_Film_BDD(Titanic);
     //printf("table apres suppression\n");
-    //afficherTable();
+    afficherTable();
     printf("fin programme\n");
 
     return 0;
