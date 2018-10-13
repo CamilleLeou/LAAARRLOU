@@ -1,55 +1,29 @@
-//
-//  mysqlPart.h
-//  testSDL
-//
-//  Created by Jérôme COFFIN on 12/10/2018.
-//  Copyright © 2018 Jérôme COFFIN. All rights reserved.
-//
-
-#ifndef mysqlPart_h
-#define mysqlPart_h
+#ifndef MYSQLPART_H_INCLUDED
+#define MYSQLPART_H_INCLUDED
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <winsock.h>        //Inclure les sockets pout windows
+#include <MYSQL/mysql.h>    //Inclure API mySQL pour C
+#undef main                 //l'API mySQL utilise un fichier main different de main.cpp
+                            //cette ligne permet de ne pas les confondre
 
-void afficherTable();
-void supprimerFilmBDD();
-void entrer_Realisateur_BDD(Film Film);
-void entrer_Film_BDD(Film Film);
-void afficher(Film Film);
+#include "Structures.h"
+
+
+People addPeople(void);
+void viderBuffer(void);
+People InitNull(void);
 Film addFilm(Film Film);
-People InitNull();
-People addPeople();
-void viderBuffer();
+void entrer_Film_BDD(MYSQL mysql, Film Film);
+void entrer_Realisateur_BDD(MYSQL mysql, People personne);
+void afficherTable_Acteurs_Realisateurs(MYSQL mysql);
+void afficherTable_Films(MYSQL mysql);
+void supprimer_Film(MYSQL mysql, Film monFilm);
+void supprimer_Acteurs_Realisateurs(MYSQL mysql, People personne);
 
-typedef struct Film Film;
-typedef struct People People;
-typedef struct Date Date;
 
 
-struct Date
-{
-    int day;
-    int month;
-    int year;
-};
 
-struct People
-{
-    char* name;
-    char* surname;
-    char* birthplace;
-    Date birthday;
-};
 
-struct Film
-{
-    char* name;
-    Date date;
-    People author;
-    int numberOfActors;
-    People* actors;
-    int time;
-    int type;
-};
-
-#endif /* mysqlPart_h */
+#endif // MYSQLPART_H_INCLUDED
