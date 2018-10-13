@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <SDL/SDL_ttf.h>
+#include <SDL.h>        //Bibliothèque SDL
+#include <SDL_image.h>  //Bibliothèque permettant d'afficher des images pour la SDL
+#include <SDL_ttf.h>    //Bibliothèque permettant d'écrire du texte avec la SDL
 #undef main
 
-typedef struct Film Film;
-typedef struct People People;
-//typedef struct Date Date;
+typedef struct Film Film;       //Structure film
+typedef struct People People;   //Structure personne
 
 /* Sauf exception, toutes les variables sont des tableaux de char. La SDL ne gère permet pas d'afficher autre chose que des char avec SDL_TTF*/
 
