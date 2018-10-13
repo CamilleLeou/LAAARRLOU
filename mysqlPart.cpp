@@ -1,10 +1,4 @@
 #include "mysqlPart.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <winsock.h>
-#include <MYSQL/mysql.h>
-#undef main
-
 
 //fonction pour vider le buffer
 void viderBuffer()
@@ -31,11 +25,11 @@ People addPeople()
     gets(Person.ville);
 
     printf("What is his/her birth day ?\n");
-    scanf("%d", &Person.jour);
+    gets(Person.jour);
     printf("What is his/her birth month ?\n");
-    scanf("%d", &Person.mois);
+    gets(Person.mois);
     printf("What is his/her birth year ?\n");
-    scanf("%d", &Person.annee);
+    gets(Person.annee);
 
     return Person;
 }
@@ -45,12 +39,12 @@ People InitNull()
 {
     People Person;
 
-    Person.jour = 1;
-    Person.mois = 1;
-    Person.annee = 2001;
-    Person.ville = "none";
-    Person.nom = "No one";
-    Person.prenom = "No one";
+    Person.jour[0] = 1;
+    Person.mois[0] = 1;
+    Person.annee[0] = 1;
+    //Person.ville = "none";
+    //Person.nom = "No one";
+    //Person.prenom = "No one";
 
     return Person;
 }
@@ -64,7 +58,7 @@ Film addFilm(Film Film)
     gets(Film.titre);
 
     printf("What's the release date (year) ?\n");
-    scanf("%d", &Film.date);
+    gets(Film.date);
 
     viderBuffer();
 
@@ -87,7 +81,7 @@ Film addFilm(Film Film)
 
 
     printf("How long the movie last (in min)?\n");
-    scanf("%d", &Film.duree);
+    gets(Film.duree);
 
     printf("What kind of movie is this ?\n1-Action \n2-Horror \n3-Documentary \n4-Police \n5-Drama \n6-Animation \n7-SF \n");
     do
@@ -100,7 +94,7 @@ Film addFilm(Film Film)
 
     return Film;
 }
-   
+
 
 //entrer un film dans la BDD
 void entrer_Film_BDD(MYSQL mysql, Film Film)
@@ -109,12 +103,12 @@ void entrer_Film_BDD(MYSQL mysql, Film Film)
     //connection au server
     if(mysql_real_connect(&mysql,"127.0.0.1","root","","film_tp5",0,NULL,0))
     {
-        
+
         //creation de la requete en mySQL --> INSERT
         char requete[150] = "";
 
-        sprintf(requete, "INSERT INTO film VALUES (NULL, '%s', '%d', '%d', '%d', '%d')", Film.titre, Film.date, Film.duree, Film.type, Film.nbActeur);
-        
+        sprintf(requete, "INSERT INTO film VALUES (NULL, '%s', '%s', '%s', '%d', '%d')", Film.titre, Film.date, Film.duree, Film.type, Film.nbActeur);
+
         //envoie de la requete au server
         mysql_query(&mysql, requete);
     }

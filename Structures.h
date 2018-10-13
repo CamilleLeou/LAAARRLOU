@@ -9,9 +9,6 @@
 #ifndef Structures_h
 #define Structures_h
 
-#include <stdio.h>
-#include <stdlib.h>
-
 
 typedef struct Film Film;       //Structure film
 typedef struct People People;   //Structure personne

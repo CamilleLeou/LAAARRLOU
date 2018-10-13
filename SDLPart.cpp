@@ -1,11 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <SDL.h>        //Bibliothèque SDL
-#include <SDL_image.h>  //Bibliothèque permettant d'afficher des images pour la SDL
-#include <SDL_ttf.h>    //Bibliothèque permettant d'écrire du texte avec la SDL
-#undef main
-
 #include "SDLPart.h"
 
 
