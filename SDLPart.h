@@ -21,6 +21,7 @@ People personne(SDL_Surface *ecran, SDL_Surface *fond, People humain);
 int saisieNbActeurs(SDL_Event event, SDL_Surface *ecran);
 Film ajouterFilm(Film film);
 void afficherFilm(Film film);
+int menuPrincipal();
 
 
 
