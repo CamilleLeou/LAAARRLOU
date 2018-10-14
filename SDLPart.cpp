@@ -570,7 +570,6 @@ People personne(SDL_Surface *ecran, SDL_Surface *fond, People humain)  //On met 
                             if(nomOK == 1 && prenomOK == 1 && lieuOK == 1 && jourOK == 1 && moisOK == 1 && anneeOK == 1)    //Si tout a bien été siasie
                             {
                                 return humain;      //On retourne la personne
-                                continuer = 0;
 
                             }
                             break;
@@ -652,7 +651,7 @@ Film ajouterFilm(Film film) //Il y a un Film en paramètre
 {
     film.type = 0;      //On initialise d'abbord le genre et le nombre d'acteurs à 0
     film.nbActeur = 0;
-    int continuer = 1, continuer1 = 1, continuer2 = 1, continuer3 = 1;  //ces variables nous permettent de créer les boucles infinies
+    int continuer = 1, continuer1 = 1, continuer2 = 1, continuer3 = 1, continuer4 = 1;  //ces variables nous permettent de créer les boucles infinies
     int i = 0; //compteur pour les acteurs
 
         int titreOK = 0, dateOK = 0, dureeOK = 0, nomOK = 0, prenomOK = 0, reaOK = 0, nbOK = 0; //Ces variables nous permettent de faire les vérifications comme quoi tout est bien saisis
@@ -845,20 +844,27 @@ Film ajouterFilm(Film film) //Il y a un Film en paramètre
                 SDL_BlitSurface(next, NULL, ecran, &positionnext);  //On affiche le bouton pour passer à la fenêtre suivante
                 SDL_Flip(ecran);
 
-                SDL_WaitEvent(&event5);
+                continuer4 = 1;
 
-                switch(event5.type)
+                while(continuer4)
                 {
-                    case SDL_QUIT : exit(0);
+                    SDL_WaitEvent(&event5);
+
+                    switch(event5.type)
+                    {
+                        case SDL_QUIT : exit(0);
                                 break;
 
-                    case SDL_MOUSEBUTTONUP :
+                        case SDL_MOUSEBUTTONUP :
                                 if(dansZone(event5, 932, 545, 1021, 573) == 1)  //Si le user appuie sur le bouton suivant
                                 {
                                     i++;            //On augmente le compteur
+                                    continuer4 = 0;
                                 }
                     }//Fin switch
-                }//Fin while 2
+                }
+
+            }//Fin while 2
 
 
             //}//fin while 1
