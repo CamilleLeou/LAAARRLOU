@@ -1,17 +1,5 @@
-#include "SDLPart.h"
 #include "mysqlPart.h"
-#include "Structures.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <winsock.h>
-#include <MYSQL/mysql.h>
-#include <SDL.h>        //Bibliothèque SDL
-#include <SDL_image.h>  //Bibliothèque permettant d'afficher des images pour la SDL
-#include <SDL_ttf.h>    //Bibliothèque permettant d'écrire du texte avec la SDL
-#undef main
-
+#include "SDLPart.h"
 
 int main ( int argc, char** argv)
 {
@@ -22,6 +10,9 @@ int main ( int argc, char** argv)
 
     Film film;
     film = ajouterFilm(film);
+
+    entrer_Film_BDD(mysql, film);
+
 
     afficherFilm(film);
 

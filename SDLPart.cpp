@@ -1,7 +1,5 @@
 #include "SDLPart.h"
 
-
-
 /**La fonction ci-dessous permet d'écrire dans une zone de texte. Elle renvoie un tableau de char. En paramètre nous avons un tableau de char,
 L'ecran qui permet d'avoir une fenêtre, des coordonées et la taille de la police**/
 

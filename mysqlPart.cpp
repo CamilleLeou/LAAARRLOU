@@ -10,7 +10,7 @@ void viderBuffer()
     }
 }
 
-//fonction qui ajoute a la structure un individu acteur ou realisateur
+//fonction qui ajoute a la structure un individu acteur ou realisateur depuis la console
 People addPeople()
 {
     People Person;
@@ -107,10 +107,27 @@ void entrer_Film_BDD(MYSQL mysql, Film Film)
         //creation de la requete en mySQL --> INSERT
         char requete[150] = "";
 
-        sprintf(requete, "INSERT INTO film VALUES (NULL, '%s', '%s', '%s', '%d', '%d')", Film.titre, Film.date, Film.duree, Film.type, Film.nbActeur);
+        int date;
+        sscanf(Film.date, "%d", &date);
+        int duree;
+        sscanf(Film.duree, "%d", &duree);
 
+        sprintf(requete, "INSERT INTO film VALUES (NULL, '%s', '%d', '%d', '%d', '%d')", Film.titre, date, duree, Film.type, Film.nbActeur);
+        puts(requete);
         //envoie de la requete au server
         mysql_query(&mysql, requete);
+
+        entrer_Realisateur_BDD(mysql, Film.realisateur);
+
+        if(Film.nbActeur>0)
+        {
+            int i;
+            for(i=0; i<Film.nbActeur; i++)
+            {
+                entrer_Realisateur_BDD(mysql, Film.acteurs[i]);
+            }
+        }
+
     }
     else
     {
@@ -130,7 +147,21 @@ void entrer_Realisateur_BDD(MYSQL mysql, People personne)
         //creation de la requete INSERT
         char requete[150] = "";
 
-        sprintf(requete, "INSERT INTO acteurs_realisateurs VALUES (NULL, '%s', '%s', '1998-7-18', '%s')", personne.nom, personne.prenom, personne.ville);
+        /*char dateNaissance[9];
+        dateNaissance[0] = personne.annee[0];
+        dateNaissance[1] = personne.annee[1];
+        dateNaissance[2] = personne.annee[2];
+        dateNaissance[3] = personne.annee[3];
+        dateNaissance[4] = '-';
+        dateNaissance[5] = '0';
+        dateNaissance[6] = personne.mois[0];
+        dateNaissance[7] = '-';
+        dateNaissance[8] = personne.jour[0];
+        dateNaissance[9] = personne.jour[1];*/
+
+        sprintf(requete, "INSERT INTO acteurs_realisateurs VALUES (NULL, '%s', '%s', '1998-07-18', 'Paris')", personne.nom, personne.prenom);
+        puts(requete);
+
         //envoie de la requete a la BDD
         mysql_query(&mysql, requete);
     }

@@ -1,15 +1,15 @@
 #ifndef MYSQLPART_H_INCLUDED
 #define MYSQLPART_H_INCLUDED
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <winsock.h>        //Inclure les sockets pout windows
-#include <MYSQL/mysql.h>    //Inclure API mySQL pour C
-#undef main                 //l'API mySQL utilise un fichier main different de main.cpp
-                            //cette ligne permet de ne pas les confondre
-
 #include "Structures.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <winsock.h>
+#include <MYSQL/mysql.h>
+#undef main
 
 People addPeople(void);
 void viderBuffer(void);

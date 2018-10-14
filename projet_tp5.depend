@@ -1,16 +1,7 @@
 # depslib dependency file v1.0
-1539447486 source:c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\main.cpp
-	"SDLPart.h"
+1539512400 source:c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\main.cpp
 	"mysqlPart.h"
-	"Structures.h"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<winsock.h>
-	<MYSQL/mysql.h>
-	<SDL.h>
-	<SDL_image.h>
-	<SDL_ttf.h>
+	"SDLPart.h"
 
 1325742239 c:\program files (x86)\codeblocks\sdl-1.2.15\include\sdl\sdl.h
 	"SDL_main.h"
@@ -403,27 +394,28 @@
 	"begin_code.h"
 	"close_code.h"
 
-1539444101 c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\sdlpart.h
+1539507819 c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\sdlpart.h
+	"Structures.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
-	"Structures.h"
 
-1539446784 source:c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\sdlpart.cpp
+1539452131 source:c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\sdlpart.cpp
 	"SDLPart.h"
 
-1539447239 c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\structures.h
+1539452131 c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\structures.h
 
-1539444101 c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\mysqlpart.h
+1539510546 c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\mysqlpart.h
+	"Structures.h"
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	<winsock.h>
 	<MYSQL/mysql.h>
-	"Structures.h"
 
-1539446784 source:c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\mysqlpart.cpp
+1539512417 source:c:\users\jerome coffin\documents\mycodeblocksprojects\projet_tp5\mysqlpart.cpp
 	"mysqlPart.h"
 
