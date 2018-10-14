@@ -504,8 +504,8 @@ Chaque integer correspond à un genre de film*/
         }
 }
 
-/**La fonction suivante nous permet de remplir les infos du realisateur**/
-People personne(SDL_Surface *ecran,SDL_Surface *fond People humain)  //On met en paramètre un fond d'écran et une personne
+/*La fonction suivante nous permet de remplir les infos du realisateur*/
+People personne(SDL_Surface *ecran, SDL_Surface *fond, People humain)  //On met en paramètre un fond d'écran et une personne
 {
     SDL_Surface *caseNom = NULL, *caseDate = NULL, *caseAnnee = NULL, *lieuDeNaissance = NULL; //Ce sont toutes les surfaces pour afficher quelque chose
 

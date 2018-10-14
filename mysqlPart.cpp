@@ -147,19 +147,14 @@ void entrer_Realisateur_BDD(MYSQL mysql, People personne)
         //creation de la requete INSERT
         char requete[150] = "";
 
-        /*char dateNaissance[9];
-        dateNaissance[0] = personne.annee[0];
-        dateNaissance[1] = personne.annee[1];
-        dateNaissance[2] = personne.annee[2];
-        dateNaissance[3] = personne.annee[3];
-        dateNaissance[4] = '-';
-        dateNaissance[5] = '0';
-        dateNaissance[6] = personne.mois[0];
-        dateNaissance[7] = '-';
-        dateNaissance[8] = personne.jour[0];
-        dateNaissance[9] = personne.jour[1];*/
+        int jour;
+        sscanf(personne.jour, "%d", &jour);
+        int mois;
+        sscanf(personne.mois, "%d", &mois);
+        int annee;
+        sscanf(personne.annee, "%d", &annee);
 
-        sprintf(requete, "INSERT INTO acteurs_realisateurs VALUES (NULL, '%s', '%s', '1998-07-18', 'Paris')", personne.nom, personne.prenom);
+        sprintf(requete, "INSERT INTO acteurs_realisateurs VALUES (NULL, '%s', '%s', '%s', '%d', '%d', '%d')", personne.nom, personne.prenom, personne.ville, jour, mois, annee);
         puts(requete);
 
         //envoie de la requete a la BDD
