@@ -1129,9 +1129,18 @@ void afficherListe(int nbFilms, char listeFilms[10][20])
             SDL_Flip(ecran);
 
         }
+        else if(i == 1)
+        {
+            positionTexte.x = 22;
+            positionTexte.y = 166;
 
-        positionTexte.x = 22;
-        positionTexte.y = 166;
+            texte = TTF_RenderText_Blended(police, listeFilms[i], noir);
+            SDL_BlitSurface(texte, NULL, ecran, &positionTexte);
+            SDL_Flip(ecran);
+        }
+
+
+        positionTexte.y += 70;
 
         texte = TTF_RenderText_Blended(police, listeFilms[i], noir);
         SDL_BlitSurface(texte, NULL, ecran, &positionTexte);
@@ -1139,3 +1148,52 @@ void afficherListe(int nbFilms, char listeFilms[10][20])
 
     }
 }
+
+void recherche()
+{
+    SDL_Surface *ecran = NULL, *fondChoix = NULL;    //On initialise toutes les surfaces sont nous avons besoins (image, textes...)
+
+    SDL_Rect position;  //Position des images
+
+    SDL_Event event;        //Variable évènement
+    int continuer = 1, genre = 0;
+
+    ecran = SDL_SetVideoMode(1024, 576, 32, SDL_HWSURFACE | SDL_DOUBLEBUF); //Initialisation de la fenêtre graphique
+    fondChoix = SDL_LoadBMP("recherchePar.bmp");
+
+    position.x = 0;
+    position.y = 0;
+
+    SDL_BlitSurface(fond, NULL, ecran, &position);  //On affiche les images
+    SDL_Flip(ecran);
+
+    while(continuer)
+    {
+        SDL_WaitEvent(&event);
+
+        switch(event.type)
+        {
+            case SDL_QUIT : exit(0);
+                            break;
+
+            case SDL_MOUSEBUTTONUP :
+                            if(dansZone(event, 309, 252, 654, 318) == 1)    // en fontion du clic de l'utilisateur, on renvoie un numéro
+                            {
+                                afficherListe();    //En paramètre : le nombre de réalisateur (différents) + le tableau de réalisateur
+                            }
+                            else if(dansZone(event, 309, 405, 653, 468) == 1)
+                            {
+                                genre = saisieType(event, ecran);
+
+                                //Il faut que tu me sortes un tableau tous les films de ce genre et le nombre de films
+
+                                afficherListe();    //Pareil, les paramètres
+
+                            }
+
+                default : break;
+
+            }
+    }
+}
+

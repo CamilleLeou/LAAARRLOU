@@ -23,6 +23,7 @@ Film ajouterFilm(Film film);
 void afficherFilm(Film film);
 int menuPrincipal();
 void afficherListe(int nbFilms, char listeFilms[10][20]);
+void recherche();
 
 
 
