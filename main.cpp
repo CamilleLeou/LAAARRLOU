@@ -8,8 +8,27 @@ int main ( int argc, char** argv)
     mysql_init(&mysql);
     mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
 
-    Film film;
-    film = ajouterFilm(film);
+    Film film[10];
+    int i = 0, choix = 0;
+
+    choix = menuPrincipal();
+
+    switch(choix)
+    {
+        case 1 :
+                break;
+
+        case 2 :
+                break;
+
+        case 3 :
+                break;
+
+        case 4 : film[i] = ajouterFilm(film[i]);
+                break;
+
+        default : break;
+    }
 
     //entre le film, les acteurs et le realisateur dans la BDD
     entrer_Film_BDD(mysql, film);

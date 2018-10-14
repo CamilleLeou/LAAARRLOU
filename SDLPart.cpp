@@ -1034,3 +1034,57 @@ void afficherFilm(Film film)
 
     SDL_Flip(ecran);        //On rafraichit l'écran
 }
+
+int menuPrincipal()
+{
+    SDL_Surface *ecran = NULL, *fond = NULL;    //On initialise toutes les surfaces sont nous avons besoins (image, textes...)
+
+    SDL_Rect position;
+
+    SDL_Event event;
+    int continuer = 1;
+
+    ecran = SDL_SetVideoMode(1024, 576, 32, SDL_HWSURFACE | SDL_DOUBLEBUF); //Initialisation de la fenêtre graphique
+    fond = SDL_LoadBMP("menuPrincipal.bmp");
+
+    position.x = 0;
+    position.y = 0;
+
+    SDL_BlitSurface(fond, NULL, ecran, &position);
+    SDL_Flip(ecran);
+
+    while(continuer)
+    {
+        SDL_WaitEvent(&event);
+
+        switch(event.type)
+        {
+            case SDL_QUIT : exit(0);
+                            break;
+
+            case SDL_MOUSEBUTTONUP :
+                            if(dansZone(event, 309, 184, 654, 249) == 1)
+                            {
+                                return 1;
+                            }
+                            else if(dansZone(event, 309, 290, 653, 353) == 1)
+                            {
+                                return 2;
+                            }
+                            else if(dansZone(event, 309, 396, 654, 461) == 1)
+                            {
+                                return 3;
+                            }
+                            else if(dansZone(event, 309, 501, 654, 568) == 1)
+                            {
+                                return 4;
+                            }
+                            break;
+                default : break;
+
+            }
+    }
+
+
+
+}
