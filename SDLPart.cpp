@@ -839,10 +839,10 @@ Film ajouterFilm(Film film) //Il y a un Film en paramètre
 
         if(film.nbActeur != 0)  //Si le nombre d'acteurs est différent de 0
         {
+            SDL_BlitSurface(acteur, NULL, ecran, &position);
+            SDL_Flip(ecran);
             while(i < film.nbActeur)    //On remplit le tableau d'acteur autant qu'il y a d'acteur
             {
-                SDL_BlitSurface(acteur, NULL, ecran, &position);
-                SDL_Flip(ecran);
                 film.acteurs[i] = personne(ecran, acteur, film.acteurs[i]);
                 SDL_BlitSurface(next, NULL, ecran, &positionnext);  //On affiche le bouton pour passer à la fenêtre suivante
                 SDL_Flip(ecran);
