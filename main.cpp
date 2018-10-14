@@ -11,7 +11,20 @@ int main ( int argc, char** argv)
     Film film;
     film = ajouterFilm(film);
 
+    //entre le film, les acteurs et le realisateur dans la BDD
     entrer_Film_BDD(mysql, film);
+
+    //supprime un acteur
+    //supprimer_Acteurs_Realisateurs(mysql, film.acteurs);
+
+    //Supprime un film
+    //supprimer_Film(mysql, film);
+
+    //affiche la table des individus
+    //afficherTable_Acteurs_Realisateurs(mysql);
+
+    //affiche la table des films
+    //afficherTable_Films(mysql);
 
 
     afficherFilm(film);
