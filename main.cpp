@@ -15,7 +15,7 @@ int main ( int argc, char** argv)
 
     switch(choix)
     {
-        case 1 :
+        case 1 : afficherListe(i, );
                 break;
 
         case 2 :

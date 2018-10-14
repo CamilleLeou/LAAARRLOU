@@ -1039,9 +1039,9 @@ int menuPrincipal()
 {
     SDL_Surface *ecran = NULL, *fond = NULL;    //On initialise toutes les surfaces sont nous avons besoins (image, textes...)
 
-    SDL_Rect position;
+    SDL_Rect position;  //Position des images
 
-    SDL_Event event;
+    SDL_Event event;        //Variable évènement
     int continuer = 1;
 
     ecran = SDL_SetVideoMode(1024, 576, 32, SDL_HWSURFACE | SDL_DOUBLEBUF); //Initialisation de la fenêtre graphique
@@ -1050,7 +1050,7 @@ int menuPrincipal()
     position.x = 0;
     position.y = 0;
 
-    SDL_BlitSurface(fond, NULL, ecran, &position);
+    SDL_BlitSurface(fond, NULL, ecran, &position);  //On affiche les images
     SDL_Flip(ecran);
 
     while(continuer)
@@ -1063,7 +1063,7 @@ int menuPrincipal()
                             break;
 
             case SDL_MOUSEBUTTONUP :
-                            if(dansZone(event, 309, 184, 654, 249) == 1)
+                            if(dansZone(event, 309, 184, 654, 249) == 1)    // en fontion du clic de l'utilisateur, on renvoie un numéro
                             {
                                 return 1;
                             }
@@ -1084,7 +1084,58 @@ int menuPrincipal()
 
             }
     }
+}
 
+void afficherListe(int nbFilms, char listeFilms[10][20])
+{
+    SDL_Surface *ecran = NULL, *fond = NULL, *texte;    //On initialise toutes les surfaces sont nous avons besoins (image, textes...)
 
+    SDL_Rect position, positionTexte;  //Position des images
 
+    TTF_Init();     //initialisation de la police
+    SDL_Color noir = {0, 0, 0};
+    TTF_Font *police = NULL;
+    police = TTF_OpenFont("Angelina.ttf", 60);
+
+    SDL_Event event;        //Variable évènement
+    int continuer = 1, i = 0;
+
+    ecran = SDL_SetVideoMode(1024, 576, 32, SDL_HWSURFACE | SDL_DOUBLEBUF); //Initialisation de la fenêtre graphique
+    fond = SDL_LoadBMP("liste.bmp");
+
+    position.x = 0;
+    position.y = 0;
+
+    SDL_BlitSurface(fond, NULL, ecran, &position);  //On affiche les images
+    SDL_Flip(ecran);
+
+    for(i=0; i < nbFilms; i++)
+    {
+        if(i == 4)
+        {
+            positionTexte.x = 546;
+            positionTexte.y = 166;
+
+            texte = TTF_RenderText_Blended(police, listeFilms[i], noir);
+            SDL_BlitSurface(texte, NULL, ecran, &positionTexte);
+            SDL_Flip(ecran);
+        }
+        else if(i > 4)
+        {
+            positionTexte.y += 70;
+
+            texte = TTF_RenderText_Blended(police, listeFilms[i], noir);
+            SDL_BlitSurface(texte, NULL, ecran, &positionTexte);
+            SDL_Flip(ecran);
+
+        }
+
+        positionTexte.x = 22;
+        positionTexte.y = 166;
+
+        texte = TTF_RenderText_Blended(police, listeFilms[i], noir);
+        SDL_BlitSurface(texte, NULL, ecran, &positionTexte);
+        SDL_Flip(ecran);
+
+    }
 }

@@ -22,6 +22,7 @@ int saisieNbActeurs(SDL_Event event, SDL_Surface *ecran);
 Film ajouterFilm(Film film);
 void afficherFilm(Film film);
 int menuPrincipal();
+void afficherListe(int nbFilms, char listeFilms[10][20]);
 
 
 
