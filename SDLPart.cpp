@@ -505,9 +505,9 @@ Chaque integer correspond à un genre de film*/
 }
 
 /**La fonction suivante nous permet de remplir les infos du realisateur**/
-People personne(SDL_Surface *ecran, People humain)  //On met en paramètre un fond d'écran et une personne
+People personne(SDL_Surface *ecran,SDL_Surface *fond People humain)  //On met en paramètre un fond d'écran et une personne
 {
-    SDL_Surface *fond = NULL, *caseNom = NULL, *caseDate = NULL, *caseAnnee = NULL, *lieuDeNaissance = NULL; //Ce sont toutes les surfaces pour afficher quelque chose
+    SDL_Surface *caseNom = NULL, *caseDate = NULL, *caseAnnee = NULL, *lieuDeNaissance = NULL; //Ce sont toutes les surfaces pour afficher quelque chose
 
     SDL_Rect position;      //Position pour afficher
 
@@ -523,7 +523,6 @@ People personne(SDL_Surface *ecran, People humain)  //On met en paramètre un fo
     position.x = 0;
     position.y = 0;
 
-    fond = SDL_LoadBMP("rea.bmp");      //On charge le fond d'écran
     SDL_BlitSurface(fond, NULL, ecran, &position);  //On affiche le fond d'écran
     SDL_Flip(ecran);                    //On rafraichit l'écran
 
@@ -660,6 +659,7 @@ Film ajouterFilm(Film film) //Il y a un Film en paramètre
 
         SDL_Surface *ecran = NULL, *ajouterFilm = NULL, *typeFilm = NULL, *next = NULL, *acteur = NULL, *caseNom = NULL; //Surface pour afficher quelque chose
         SDL_Surface *rectangle = NULL, *casePage1 = NULL;       //idem
+        SDL_Surface *fondRea = NULL;
         SDL_Rect position, positionnext;        //Les différentes positions dont on a besoin
         TTF_Init();                                     //on initialise la SDL qui permet d'afficher du text
 
@@ -683,6 +683,7 @@ Film ajouterFilm(Film film) //Il y a un Film en paramètre
         acteur = SDL_LoadBMP("acteur.bmp");
         caseNom = SDL_LoadBMP("caseRealisateur.bmp");
         ajouterFilm = SDL_LoadBMP("ajouter.bmp");
+        fondRea = SDL_LoadBMP("rea.bmp");
 
         SDL_SetColorKey(next, SDL_SRCCOLORKEY, SDL_MapRGB(next->format, 255, 255, 255));    //On gère la transparence d'une certaine image
 
@@ -777,7 +778,7 @@ Film ajouterFilm(Film film) //Il y a un Film en paramètre
 
         }
 
-        film.realisateur = personne(ecran, film.realisateur);   //On saisie les infos pour le réalisateur
+        film.realisateur = personne(ecran, fondRea, film.realisateur);   //On saisie les infos pour le réalisateur
         reaOK = 1;  //La saisie s'est bien déroulée
         SDL_BlitSurface(next, NULL, ecran, &positionnext);  //On affiche le bouton pour passer à l'étape suivante
         SDL_Flip(ecran);
@@ -838,11 +839,13 @@ Film ajouterFilm(Film film) //Il y a un Film en paramètre
 
         if(film.nbActeur != 0)  //Si le nombre d'acteurs est différent de 0
         {
-            SDL_BlitSurface(acteur, NULL, ecran, &position);
-            SDL_Flip(ecran);
-
             while(i < film.nbActeur)    //On remplit le tableau d'acteur autant qu'il y a d'acteur
             {
+                SDL_BlitSurface(acteur, NULL, ecran, &position);
+                SDL_Flip(ecran);
+                film.acteurs[i] = personne(ecran, acteur, film.acteurs[i]);
+                SDL_BlitSurface(next, NULL, ecran, &positionnext);  //On affiche le bouton pour passer à la fenêtre suivante
+                SDL_Flip(ecran);
 
                 SDL_WaitEvent(&event5);
 
@@ -852,32 +855,10 @@ Film ajouterFilm(Film film) //Il y a un Film en paramètre
                                 break;
 
                     case SDL_MOUSEBUTTONUP :
-                            if(dansZone(event5, 108, 270, 349, 337) == 1)
-                            {
-                                film.acteurs[i].prenom[20] = ecrire(film.acteurs[i].prenom, ecran, caseNom, 116, 275, 109, 270, 60);    //On saisit son prenom
-                                prenomOK = 1;   //Prenom bien saisi
-                            }
-                            else if(dansZone(event5, 624, 269, 868, 334) == 1)
-                            {
-                                film.acteurs[i].nom[20] = ecrire(film.acteurs[i].nom, ecran, caseNom, 627, 275, 624, 269, 60);  //On saisit son nom
-                                nomOK = 1;  //On saisit bien son nom
-                            }
-
-                          if(prenomOK == 1 && nomOK == 1)   //Si toutes les infos sont rentrées
-                          {
-                                SDL_BlitSurface(next, NULL, ecran, &positionnext);  //On affiche le bouton pour passer à la fenêtre suivante
-                                SDL_Flip(ecran);
-
                                 if(dansZone(event5, 932, 545, 1021, 573) == 1)  //Si le user appuie sur le bouton suivant
                                 {
-                                    nomOK = 0;  //On remet à 0 les confirmations
-                                    prenomOK = 0;
                                     i++;            //On augmente le compteur
-                                    SDL_BlitSurface(acteur, NULL, ecran, &position);    //On remet à neuf l'interface
-                                    SDL_Flip(ecran);
                                 }
-
-                          }//Fin if OK
                     }//Fin switch
                 }//Fin while 2
 
