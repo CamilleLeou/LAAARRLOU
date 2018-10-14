@@ -17,7 +17,7 @@ char ecrireChiffre(char chiffre[10], SDL_Surface *ecran, SDL_Surface *fond, int 
 char ecrireDate(char chiffre[10], SDL_Surface *ecran, SDL_Surface *fond, int x, int y, int xFond, int yFond, int taille);
 int dansZone(SDL_Event event, int x, int y, int x2, int y2);
 int saisieType(SDL_Event event, SDL_Surface *ecran);
-People personne(SDL_Surface *ecran, People humain);
+People personne(SDL_Surface *ecran, SDL_Surface *fond, People humain);
 int saisieNbActeurs(SDL_Event event, SDL_Surface *ecran);
 Film ajouterFilm(Film film);
 void afficherFilm(Film film);
