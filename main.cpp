@@ -21,7 +21,7 @@ int main ( int argc, char** argv)
         case 2 :
                 break;
 
-        case 3 :
+        case 3 : recherche();
                 break;
 
         case 4 : film[i] = ajouterFilm(film[i]);

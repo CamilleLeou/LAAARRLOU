@@ -1129,7 +1129,7 @@ void afficherListe(int nbFilms, char listeFilms[10][20])
             SDL_Flip(ecran);
 
         }
-        else if(i == 1)
+        else if(i == 0)
         {
             positionTexte.x = 22;
             positionTexte.y = 166;
